@@ -286,6 +286,7 @@
 
 			};
 
+// Articles and overlay navigation are disabled for the natural scroll portfolio.
 		// Articles.
 			$main_articles.each(function() {
 
@@ -298,7 +299,7 @@
 							location.hash = '';
 						});
 
-				// Prevent clicks from inside article from bubbling.
+				// Prevent clicks from bubbling.
 					$this.on('click', function(event) {
 						event.stopPropagation();
 					});
@@ -306,7 +307,7 @@
 			});
 
 		// Events.
-			$body.on('click', function(event) {
+			$body.on('click', function() {
 
 				// Article visible? Hide.
 					if ($body.hasClass('is-article-visible'))
@@ -348,7 +349,7 @@
 
 					}
 
-				// Otherwise, check for a matching article.
+				// Otherwise, show article.
 					else if ($main_articles.filter(location.hash).length > 0) {
 
 						// Prevent default.
@@ -363,12 +364,11 @@
 			});
 
 		// Scroll restoration.
-		// This prevents the page from scrolling back to the top on a hashchange.
 			if ('scrollRestoration' in history)
 				history.scrollRestoration = 'manual';
 			else {
 
-				var	oldScrollPos = 0,
+				var oldScrollPos = 0,
 					scrollPos = 0,
 					$htmlbody = $('html,body');
 
@@ -387,7 +387,7 @@
 
 		// Initialize.
 
-			// Hide main, articles.
+			// Hide main and articles.
 				$main.hide();
 				$main_articles.hide();
 
@@ -397,5 +397,4 @@
 					$window.on('load', function() {
 						$main._show(location.hash.substr(1), true);
 					});
-
 })(jQuery);
